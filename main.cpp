@@ -165,15 +165,14 @@ void process::finishProcessPushed(ProcessSt &p)
 }
 bool process::statusEmpty()
 {
-    if(wait_queue.empty())
-        return true;
-    return false;
+    return wait_queue.empty();
 }
 void process::RR_Algorithm()
 {
     int time=0,finishnum=1, currIndex=-1,priority=-1;
     this->getProcess(currIndex);
     this->changeBustTime(currIndex,this->getProcess(currIndex).arrival_time);
+    time=this->getProcess(currIndex).arrival_time;
     while(finishnum<=process_vector.size())
     {
         time+=RR; // 直接加时间片
@@ -211,7 +210,6 @@ int main()
     process p(n,RR);
     p.RR_Algorithm();
 }
-
 
 /*
 4 5
