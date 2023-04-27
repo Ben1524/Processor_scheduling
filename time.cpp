@@ -1,3 +1,4 @@
+/*
 #include<iostream>
 #include<vector>
 #include<queue>
@@ -184,13 +185,16 @@ int main()
     p.priorityAlgorithm();
     return 0;
 }
+*/
 /*5
 a 0 4 4
 b 1 3 2
 c 2 4 3
 d 3 2 1
-e 4 4 2*/
+e 4 4 2*//*
 
+
+*/
 /*
 6
 a 6 8 3
@@ -199,3 +203,4 @@ c 2 4  1
 d 8 2 4
 e 11 4 3
 f 7 7 6*/
+
