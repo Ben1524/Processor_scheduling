@@ -3,6 +3,10 @@
 #include<queue>
 #include<string>
 using namespace std;
+
+const string name="祝景奇";
+const string id="L12114014";
+
 typedef struct ProcessSt
 {
     string pName;         // 进程名
@@ -19,7 +23,7 @@ typedef struct ProcessSt
 class sortProcess
 {
 public:
-    bool operator()(ProcessSt *p1, ProcessSt *p2)
+    bool operator()(const ProcessSt * const p1, const ProcessSt *const p2) const
     {
         if (p1->priority == p2->priority)
         {
@@ -182,10 +186,18 @@ void process::RR_Algorithm()
             this->pushWaitQueue(time); // 将到达的进程放入等待队列
             this->getProcess(currIndex).priority=priority--;
             this->finishProcessPushed(this->getProcess(currIndex));
-            if(!this->statusEmpty()) // 等待队列不为空
+            while(finishnum<=process_vector.size())
             {
-                this->getWaitQueue(currIndex); //改变当前正在进程
-                this->changeBustTime(currIndex,time);
+                if(!this->statusEmpty())
+                {
+                    this->getWaitQueue(currIndex);
+                    this->changeBustTime(currIndex,time);
+                    break;
+                }else
+                {
+                    time++;
+                    this->pushWaitQueue(time);
+                }
             }
         }
         else
@@ -194,10 +206,19 @@ void process::RR_Algorithm()
             time-=temp; //进程实际完成的时间
             this->pushWaitQueue(time);
             this->changeFinishAndTurnTime(currIndex,time);
-            if(!this->statusEmpty()) // 等待队列不为空
+            while(finishnum<=process_vector.size())
             {
-                this->getWaitQueue(currIndex);
-                this->changeBustTime(currIndex,time);
+                if(!this->statusEmpty())
+                {
+                    this->getWaitQueue(currIndex);
+                    this->changeBustTime(currIndex,time);
+                    break;
+                }
+                else
+                {
+                    time++;
+                    this->pushWaitQueue(time);
+                }
             }
         }
     }
@@ -205,19 +226,24 @@ void process::RR_Algorithm()
 }
 int main()
 {
+    cout<<"姓名"<<name<<endl;
+    cout<<"学号"<<id<<endl;
     int RR,n;  // RR时间片,n为进程数
     cin>>RR>>n;
     process p(n,RR);
     p.RR_Algorithm();
 }
 
-/*
-4 5
+
+/*4 5
 a 0 4
 b 1 3
 c 2 4
 d 3 2
 e 4 4*/
+
+
+
 
 
 /*1 5
@@ -226,3 +252,5 @@ b 1 3
 c 2 4
 d 3 2
 e 4 4*/
+
+
